@@ -13,7 +13,8 @@ import com.educandoweb.curse.entities.User;
 //em cima no nome da classe
 
 @RestController
-@RequestMapping (value ="/users") //value contem o caminho do recurso
+//value contem o caminho do recurso
+@RequestMapping (value ="/users")
 public class UserResourse {
 	
 	//método endpoint pra acessar os usuários

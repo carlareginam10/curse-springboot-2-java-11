@@ -2,13 +2,24 @@ package com.educandoweb.curse.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 //Serializable é definida nos objetos quando queremos que os objetos possam ser transformados em cadeias de bites, ou seja,
 //para que o objeto trafegue na rede, possa ser gravado em arquivos, etc...
 
+
+//é necessário colocar algumas anotations para instruir o JPA como ele vai converter os objetos para o modelo relacional
+@Entity
 public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
+	 //estou instruindo o JPA que a chave primária é o ID
+	@Id
+	 // Id auto incrementado
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id;
 	private String name;
 	private String email;
