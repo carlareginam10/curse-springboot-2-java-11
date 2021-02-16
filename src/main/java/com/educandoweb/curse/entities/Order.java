@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.educandoweb.curse.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 //A palavra order é uma palavra reservada do banco de dados, por isso tive que informar outro nome de tabela, 
@@ -27,6 +28,10 @@ public class Order implements Serializable {
 	@JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone ="GMT")
 	private Instant moment;
 	
+	//usei o integer pra ficar explicito que vou gravar um número inteiro no banco
+	//mas no construtor matem o tipo OrderStatus
+	private Integer orderStatus;
+	
 	//identificaçao de chave estrangeira, relacionamento mtos pra 1
 	@ManyToOne
 	//informar qual o nome da chave estrangeira no banco
@@ -38,11 +43,13 @@ public class Order implements Serializable {
 		
 	}
 	
-	public Order(Long id, Instant moment, User client) {
+	public Order(Long id, Instant moment, OrderStatus orderStatus, User client ) {
 		super();
 		this.id = id;
 		this.moment = moment;
+		setOrderStatus(orderStatus);
 		this.client = client;
+		
 	}
 	
 	public Long getId() {
@@ -92,6 +99,17 @@ public class Order implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if(orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
+		
 	}
 	
 	
