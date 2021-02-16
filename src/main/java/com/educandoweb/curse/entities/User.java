@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //Serializable é definida nos objetos quando queremos que os objetos possam ser transformados em cadeias de bites, ou seja,
 //para que o objeto trafegue na rede, possa ser gravado em arquivos, etc...
 
@@ -31,6 +33,10 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 	
+	//a anotação @JsonIgnore é necessária quando temos um associação de mão dupla
+	//(dentro do pedido tem o usuário e dentro do usuário tem a lista de pedidos)
+	//senão o programa entra em luping infinito
+	@JsonIgnore 
 	@OneToMany(mappedBy ="client")
 	private List<Order> orders = new ArrayList<>(); 
 	
