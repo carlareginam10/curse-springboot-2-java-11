@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.educandoweb.curse.entities.User;
 import com.educandoweb.curse.repositories.UserRepository;
+import com.educandoweb.curse.services.exceptions.ResourceNotFoundException;
 
 // A classe tem que estar registrada como um componente do spring (através da anotation @Component, @Repository ou @Service)
 //para que a injeção de dependencialá no UserResouces funcione - escolha a anotation de acordo com o tipo da sua classe
@@ -24,7 +25,7 @@ public class UserService {
 	
 	public User finBydId(Long id){
 		Optional <User> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
